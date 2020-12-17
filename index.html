@@ -22,9 +22,6 @@
 	<div class="banner">
 		<p class="bannertext1">青山似欲留人住</p>
 		<p class="bannertext2">香茗何妨为客尝</p>
-		<form class="form clear">
-			<input type="text" placeholder="输入关键词" class="search">
-		</form>
 	</div>
 	<div class="txt"><p>——————————————&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;品牌理念&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——————————————</p></div>
 	<div class="box2-1">
@@ -34,10 +31,18 @@
 		</div>
 	</div>
 	<div class="box2-2">
-		<img src="img/img1.png">
+		<div class="box">
+			<div class="pic">
+				<img src="img/img1.png">
+				<div class="cover"></div>
+			</div>
+			<div class="img1">
+				<img src="img/img1.png">
+			</div>
+		</div>
 		<p class="txtstyle1">关于</p>
 		<p class="txtstyle2">少无适俗韵，性本爱丘山。误落尘网中，一去三十年。羁鸟恋旧林，池鱼思故渊。开荒南野际，守拙归园田。方宅十余亩，草屋八九间。榆柳荫后檐，桃李罗堂前。暧暧远人村，依依墟里烟。狗吠深巷中，鸡鸣桑树颠。户庭无尘杂，虚室有余闲。久在樊笼里，复得返自然。</p>
-		<p class="txtstyle3"><a href="#">更多</a></p>
+		<p class="txtstyle3"><a href="#" onClick="alertmes()">更多</a></p>
 	</div>
 	<div class="txt"><p>——————————————&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;产品文化&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——————————————</p></div>
 	<div class="txt2"><p>这是一段关于品质的描述</p></div>
@@ -70,7 +75,7 @@
 			<p class="txt4-1">糖果茶系列</p>
 			<p class="txt4-2">自然陈化古木，极致的野！</p>
 			<p class="txt4-3">“野泉烟火白云间，坐饮香茶爱此山。眼下维舟不忍去，清溪流水暮潺潺”灵一在青山潭生活煮茶，白云青山相伴，静想清欢。</p>
-			<p class="txt4-4"><a href="#">查看全部</a></p>
+			<p class="txt4-4"><a href="#" onclick="openNewWindow()">查看全部</a></p>
 		</div>
 	</div>
 	<div class="box4 clear">
@@ -79,7 +84,7 @@
 			<p class="txt4-1">老茶系列</p>
 			<p class="txt4-2">自然陈化古木，极致的野！</p>
 			<p class="txt4-3">客人寒夜来访，一壶香茗饱含情谊，窗前寒梅别有一番韵味，为饮茶锦上添花，让人回味无穷。</p>
-			<p class="txt4-4"><a href="#">查看全部</a></p>
+			<p class="txt4-4"><a href="#" onclick="openNewWindow()">查看全部</a></p>
 		</div>
 	</div>
 	<div class="txt"><p>——————————————&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他系列&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——————————————</p></div>
@@ -102,7 +107,7 @@
 			<p class="txt5-2">玫瑰红茶</p>
 		</div>
 	</div>
-	<p class="txtall"><a href="#">查看全部</a></p>
+	<p class="txtall"><a href="#" onclick="openNewWindow()">查看全部</a></p>
 	<p class="txt5-1">茶酒系列</p>
 	<p class="txt5-2">一杯馨香，一杯清冽，一碗相思，一万寻觅</p>
 	<div class="box6 clear">
@@ -122,10 +127,64 @@
 			<p class="txt5-2">桂花精酿</p>
 		</div>
 	</div>
-	<p class="txtall"><a href="#">查看全部</a></p>
+	<p class="txtall"><a href="#" onclick="openNewWindow()">查看全部</a></p>
 	<div class="last">
 		<p>冀ICP备18011017号-3   冀公网安备 13010802000630号</p>
 	</div>
 </body>
+<script>
+	var newWindow;
+			function openNewWindow(){
+				newWindow = window.open("http://www.buzhimingcha.com/","win1","width=500,height=300");
+			}
+	var timeoutId;
+		function alertmes(){
+			timeoutId = setTimeout(function (){
+				alert('延迟执行3秒钟');
+			},3000);
+		}
+	var box = document.querySelector('.box');
+	var pic = document.querySelector('.pic');
+	var cover = document.querySelector('.cover');
+	var img1 = document.querySelector('.img1');
+	var bImg = document.querySelector('.img1 img');
+
+	pic.onmouseover = function(){
+		cover.style.display = 'block';
+		img1.style.display = 'block';
+	}
+	pic.onmouseout = function(){
+		cover.style.display = 'none';
+		img1.style.display = 'none';
+	}
+
+	pic.onmousemove = function(e){
+		var event = e || window.event;
+		
+		var x=e.clientX - box.offsetLeft - cover.offsetLeft/2;
+		var y=e.clientY - box.offsetTop - cover.offsetTop/2;
+		if(x < 0){
+			x = 0;
+		}
+		if(y < 0 ){
+			y = 0;
+		}
+		if(x> pic.offsetWidth-cover.offsetWidth){ 
+			x= pic.offsetWidth-cover.offsetWidth;
+		};
+		if(y > pic.offsetHeight-cover.offsetHeight){
+			y = pic.offsetHeight-cover.offsetHeight;
+		}
+		cover.style.left = x + 'px';
+		cover.style.top = y + 'px';
+
+		var bx = x * (bImg.offsetWidth - img1.offsetWidth)/(pic.offsetWidth - cover.offsetWidth);
+		var by = y * (bImg.offsetWidth - img1.offsetWidth)/(pic.offsetWidth - cover.offsetWidth);
+
+		bImg.style.marginLeft = - bx + 'px';
+		bImg.style.marginTop = - by + 'px';
+			
+	}
+</script>
 </html>
  
